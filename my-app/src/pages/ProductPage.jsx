@@ -105,7 +105,7 @@ const handleBuyNow = (product) => {
       </div>
     );
   }
-
+  {console.log(product)}
   return (
     <div className="min-h-screen bg-white px-4 sm:px-6 md:px-8 lg:px-12 pt-5">
       <div className="max-w-[1600px] mx-auto">
@@ -117,7 +117,7 @@ const handleBuyNow = (product) => {
                 <img
                   src={product.image}
                   alt={product.title}
-                  className="w-full h-full object-contain drop-shadow-2xl rounded-2xl p-8"
+                  className="w-250 h-150 object-contain drop-shadow-2xl rounded-2xl p-8"
                 />
                 {/* Veg Icon */}
                 <div className="absolute top-6 left-6 w-7 h-7 border-[2.5px] border-green-600 rounded-md flex items-center justify-center bg-white">

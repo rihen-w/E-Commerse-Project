@@ -15,6 +15,7 @@ import Payment from './pages/Payment.jsx';
 import Orders from "./pages/Orders.jsx"
 import { UserContext } from "./Context/UserContext.jsx";
 import { useContext } from "react";
+import SearchResults from "./pages/SearchResults";
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
         <Route path={"/productpage/:id"} element = {<ProductPage/>}/>
         <Route path={"/orders"} element ={<Orders/>}/>
         <Route path={"/signup"} element = {<Signup/>}/>
+        <Route path="/search" element={<SearchResults />} />
         <Route path={"/payment"} element = {<Payment/>}/>
         <Route path={"/login"} element = {<Login/>}/>
         <Route path={'/profile'} element={<UserProfile/>}/>
