@@ -14,6 +14,10 @@ export default function ProductPage() {
 const navigate = useNavigate();
 
 const handleBuyNow = (product) => {
+      if (!user) {
+      navigate("/auth");
+      return;
+    }
   navigate("/payment", { state: { product } });
 };
   const { user, setUser, cart, setCart } = useContext(UserContext);

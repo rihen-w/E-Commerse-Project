@@ -129,24 +129,6 @@ const Payment = () => {
     }, 2000);
   };
 
-  if (!user) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-teal-50 via-white to-cyan-50">
-        <div className="text-center p-8 bg-white rounded-2xl shadow-xl border border-gray-100 max-w-md">
-          <AlertCircle className="w-16 h-16 text-orange-500 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-gray-800 mb-3">Login Required</h2>
-          <p className="text-gray-600 mb-6">Please login to proceed with your order.</p>
-          <button
-            onClick={() => navigate("/login")}
-            className="bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white px-8 py-3 rounded-lg font-semibold transition-all transform hover:scale-105 shadow-lg"
-          >
-            Login Now
-          </button>
-        </div>
-      </div>
-    );
-  }
-
   // Check if there are items to purchase (either from cart or Buy Now)
   if (paymentItems.length === 0) {
     return (

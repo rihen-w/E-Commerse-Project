@@ -333,12 +333,59 @@
   ],
   "users": [
     {
-      "id": "0ddd",
-      "name": "rihen krishna ",
-      "email": "rihenww@gmail.com",
-      "password": "rihen123",
-      "wishlist": [],
+      "id": "01aa",
+      "name": "Rihen A",
+      "email": "rihena@gmail.com",
+      "password": "Rihen!123",
+      "wishlist": [
+        {
+          "id": "3",
+          "title": "GNC Gold 100% Whey",
+          "subtitle": "4.4 lb Double Rich Chocolate",
+          "currentPrice": "6319",
+          "originalPrice": "8099",
+          "discount": "21% off",
+          "badge": "Best Seller",
+          "image": "https://images-eu.ssl-images-amazon.com/images/I/61a-LrnRvwL._AC_UL210_SR210,210_.jpg",
+          "item": "whey protein"
+        },
+        {
+          "id": "4",
+          "title": "MuscleTech NitroTech Whey Gold",
+          "subtitle": "2 lb Cookies & Cream",
+          "currentPrice": "3299",
+          "originalPrice": "4499",
+          "discount": "27% off",
+          "badge": "Best Seller",
+          "image": "https://international.muscletech.com/wp-content/uploads/2022/06/muscletech-int-nitro-tech-100-whey-gold.png",
+          "item": "whey protein"
+        }
+      ],
       "cart": [
+        {
+          "id": "4",
+          "title": "MuscleTech NitroTech Whey Gold",
+          "subtitle": "2 lb Cookies & Cream",
+          "currentPrice": "3299",
+          "originalPrice": "4499",
+          "discount": "27% off",
+          "badge": "Best Seller",
+          "image": "https://international.muscletech.com/wp-content/uploads/2022/06/muscletech-int-nitro-tech-100-whey-gold.png",
+          "item": "whey protein",
+          "quantity": 2
+        },
+        {
+          "id": "3",
+          "title": "GNC Gold 100% Whey",
+          "subtitle": "4.4 lb Double Rich Chocolate",
+          "currentPrice": "6319",
+          "originalPrice": "8099",
+          "discount": "21% off",
+          "badge": "Best Seller",
+          "image": "https://images-eu.ssl-images-amazon.com/images/I/61a-LrnRvwL._AC_UL210_SR210,210_.jpg",
+          "item": "whey protein",
+          "quantity": 1
+        },
         {
           "id": "1",
           "title": "WellCore Performance Whey",
@@ -347,164 +394,26 @@
           "originalPrice": "5599",
           "discount": "16% off",
           "badge": "Best Seller",
-          "image": "./public/product1.jpg",
-          "item": "whey protein",
-          "quantity": 1
-        },
-        {
-          "id": "4",
-          "title": "MuscleTech NitroTech Whey Gold",
-          "subtitle": "2 lb Cookies & Cream",
-          "currentPrice": "3299",
-          "originalPrice": "4499",
-          "discount": "27% off",
-          "badge": "Best Seller",
-          "image": "./muscletech-100%.png",
-          "item": "whey protein",
-          "quantity": 1
-        },
-        {
-          "id": "19",
-          "title": "MuscleBlaze Creatine Micronized",
-          "subtitle": "250 g",
-          "currentPrice": "899",
-          "originalPrice": "1099",
-          "discount": "18% off",
-          "badge": "Best On Demand",
-          "image": "https://img8.hkrtcdn.com/39964/prd_3996397-MuscleBlaze-Creatine-Monohydrate-CreAMP-0.55-lb-Unflavoured_c_m.jpg",
-          "item": "creatine",
-          "quantity": 1
-        },
-        {
-          "id": "11",
-          "title": "MuscleBlaze Creatine Monohydrate",
-          "subtitle": "300 g",
-          "currentPrice": "799",
-          "originalPrice": "999",
-          "discount": "20% off",
-          "badge": "Verified",
-          "image": "https://img2.hkrtcdn.com/35711/prd_3571061-MuscleBlaze-Creatine-Monohydrate-CreAMP-0.88-lb-Unflavoured_c_m.jpg",
-          "item": "creatine",
-          "quantity": 4
-        },
-        {
-          "id": "12",
-          "title": "ON Creatine",
-          "subtitle": "300 g",
-          "currentPrice": "1199",
-          "originalPrice": "1499",
-          "discount": "20% off",
-          "badge": "Verified",
-          "image": "https://images-cdn.ubuy.co.in/681ac7e795e292e4d4080787-optimum-nutrition-micronized-creatine.jpg",
-          "item": "creatine",
-          "quantity": 1
-        },
-        {
-          "id": "3",
-          "title": "GNC Gold 100% Whey",
-          "subtitle": "4.4 lb Double Rich Chocolate",
-          "currentPrice": "6319",
-          "originalPrice": "8099",
-          "discount": "21% off",
-          "badge": "Best Seller",
-          "image": "./GNC-100%.jpg",
-          "item": "whey protein",
-          "quantity": 1
-        }
-      ],
-      "orders": []
-    },
-    {
-      "id": "6acb",
-      "name": "alex",
-      "email": "alex@gmail.com",
-      "password": "alex123",
-      "wishlist": [
-        {
-          "id": "2",
-          "title": "MuscleBlaze Whey PR",
-          "subtitle": "4.4 lb Chocolate Fudge",
-          "currentPrice": "5609",
-          "originalPrice": "6999",
-          "discount": "19% off",
-          "badge": "Trusted",
-          "image": "./Whey-PR.jpg",
-          "item": "whey protein"
-        },
-        {
-          "id": "3",
-          "title": "GNC Gold 100% Whey",
-          "subtitle": "4.4 lb Double Rich Chocolate",
-          "currentPrice": "6319",
-          "originalPrice": "8099",
-          "discount": "21% off",
-          "badge": "Best Seller",
-          "image": "./GNC-100%.jpg",
-          "item": "whey protein"
-        },
-        {
-          "id": "4",
-          "title": "MuscleTech NitroTech Whey Gold",
-          "subtitle": "2 lb Cookies & Cream",
-          "currentPrice": "3299",
-          "originalPrice": "4499",
-          "discount": "27% off",
-          "badge": "Best Seller",
-          "image": "./muscletech-100%.png",
-          "item": "whey protein"
-        },
-        {
-          "id": "7",
-          "title": "MuscleBlaze Iso-Zero",
-          "subtitle": "2 lb Kesar Thandai",
-          "currentPrice": "3899",
-          "originalPrice": "5199",
-          "discount": "25% off",
-          "badge": "Best On Demand",
-          "image": "./MB-ISO-100.jpg",
-          "item": "whey protein"
-        },
-        {
-          "id": "6",
-          "title": "GNC 100% Whey + Nitro Surge",
-          "subtitle": "4.4 lb Low Carb Ice Cream Chocolate",
-          "currentPrice": "7299",
-          "originalPrice": "9499",
-          "discount": "23% off",
-          "badge": "Best On Demand",
-          "image": "./2Lbs_Front.jpg",
-          "item": "whey protein"
-        }
-      ],
-      "cart": [
-        {
-          "id": "3",
-          "title": "GNC Gold 100% Whey",
-          "subtitle": "4.4 lb Double Rich Chocolate",
-          "currentPrice": "6319",
-          "originalPrice": "8099",
-          "discount": "21% off",
-          "badge": "Best Seller",
-          "image": "./GNC-100%.jpg",
+          "image": "https://img8.hkrtcdn.com/39078/prd_3907787-MuscleBlaze-Biozyme-Performance-Whey-4.4-lb-Rich-Chocolate_o.jpg",
           "item": "whey protein",
           "quantity": 2
         },
         {
-          "id": "23",
-          "title": "MuscleBlaze Pre Workout WrathX",
-          "subtitle": "30 servings Watermelon",
-          "currentPrice": "2899",
-          "originalPrice": "3599",
-          "discount": "19% off",
-          "badge": "Best On Demand",
-          "image": "./MB-preworkout.jpg",
-          "item": "preworkout",
-          "quantity": 3
+          "id": "13",
+          "title": "WellCore Fruit Fution Creatine Monohydrate",
+          "subtitle": "500 g",
+          "currentPrice": "1499",
+          "originalPrice": "1999",
+          "discount": "25% off",
+          "badge": "Trusted",
+          "image": "https://m.media-amazon.com/images/I/71wLbVnsgSL._AC_UF1000,1000_QL80_.jpg",
+          "item": "creatine",
+          "quantity": 1
         }
       ],
       "orders": [
         {
-          "orderId": "WL6EHOQDJ",
+          "orderId": "HRR1UW04M",
           "items": [
             {
               "id": "3",
@@ -514,133 +423,17 @@
               "originalPrice": "8099",
               "discount": "21% off",
               "badge": "Best Seller",
-              "image": "./GNC-100%.jpg",
-              "item": "whey protein",
-              "quantity": 1
-            },
-            {
-              "id": "2",
-              "title": "MuscleBlaze Whey PR",
-              "subtitle": "4.4 lb Chocolate Fudge",
-              "currentPrice": "5609",
-              "originalPrice": "6999",
-              "discount": "19% off",
-              "badge": "Trusted",
-              "image": "./Whey-PR.jpg",
-              "item": "whey protein",
-              "quantity": 1
-            },
-            {
-              "id": "4",
-              "title": "MuscleTech NitroTech Whey Gold",
-              "subtitle": "2 lb Cookies & Cream",
-              "currentPrice": "3299",
-              "originalPrice": "4499",
-              "discount": "27% off",
-              "badge": "Best Seller",
-              "image": "./muscletech-100%.png",
-              "item": "whey protein",
-              "quantity": 1
-            },
-            {
-              "id": "6",
-              "title": "GNC 100% Whey + Nitro Surge",
-              "subtitle": "4.4 lb Low Carb Ice Cream Chocolate",
-              "currentPrice": "7299",
-              "originalPrice": "9499",
-              "discount": "23% off",
-              "badge": "Best On Demand",
-              "image": "./2Lbs_Front.jpg",
+              "image": "https://images-eu.ssl-images-amazon.com/images/I/61a-LrnRvwL._AC_UL210_SR210,210_.jpg",
               "item": "whey protein",
               "quantity": 1
             }
           ],
           "shippingAddress": {
-            "fullName": "rihen",
+            "fullName": "rihen aleena",
             "phone": "8075608994",
-            "addressLine1": "kinfra",
-            "addressLine2": "NH 66",
-            "landmark": "calicute univercity",
-            "city": "kozhikode",
-            "state": "kerala",
-            "pincode": "673305"
-          },
-          "paymentMethod": "Cash on Delivery",
-          "subtotal": 22526,
-          "shipping": 0,
-          "tax": 4054.68,
-          "total": 26580.68,
-          "orderDate": "2025-10-17T15:16:38.677Z",
-          "status": "Processing"
-        },
-        {
-          "orderId": "XGWBDBISE",
-          "items": [
-            {
-              "id": "7",
-              "title": "MuscleBlaze Iso-Zero",
-              "subtitle": "2 lb Kesar Thandai",
-              "currentPrice": "3899",
-              "originalPrice": "5199",
-              "discount": "25% off",
-              "badge": "Best On Demand",
-              "image": "./MB-ISO-100.jpg",
-              "item": "whey protein",
-              "quantity": 1
-            },
-            {
-              "id": "4",
-              "title": "MuscleTech NitroTech Whey Gold",
-              "subtitle": "2 lb Cookies & Cream",
-              "currentPrice": "3299",
-              "originalPrice": "4499",
-              "discount": "27% off",
-              "badge": "Best Seller",
-              "image": "./muscletech-100%.png",
-              "item": "whey protein",
-              "quantity": 1
-            }
-          ],
-          "shippingAddress": {
-            "fullName": "aleena rihen",
-            "phone": "8075608994",
-            "addressLine1": "kiinfra",
-            "addressLine2": "NH 66",
-            "landmark": "univercity",
-            "city": "kozhikode",
-            "state": "kerala",
-            "pincode": "673305"
-          },
-          "paymentMethod": "Cash on Delivery",
-          "subtotal": 7198,
-          "shipping": 0,
-          "tax": 1295.6399999999999,
-          "total": 8493.64,
-          "orderDate": "2025-10-17T15:20:10.349Z",
-          "status": "Processing"
-        },
-        {
-          "orderId": "ATCWM30JE",
-          "items": [
-            {
-              "id": "3",
-              "title": "GNC Gold 100% Whey",
-              "subtitle": "4.4 lb Double Rich Chocolate",
-              "currentPrice": "6319",
-              "originalPrice": "8099",
-              "discount": "21% off",
-              "badge": "Best Seller",
-              "image": "./GNC-100%.jpg",
-              "item": "whey protein",
-              "quantity": 1
-            }
-          ],
-          "shippingAddress": {
-            "fullName": "rihen",
-            "phone": "1234567890",
             "addressLine1": "kinfra",
             "addressLine2": "nh 66",
-            "landmark": "univercity",
+            "landmark": "university",
             "city": "kozhikode",
             "state": "kerala",
             "pincode": "673305"
@@ -650,28 +443,60 @@
           "shipping": 0,
           "tax": 1137.4199999999998,
           "total": 7456.42,
-          "orderDate": "2025-10-17T15:27:32.763Z",
+          "orderDate": "2025-10-20T13:00:58.055Z",
+          "status": "Processing"
+        },
+        {
+          "orderId": "GONZAEYBT",
+          "items": [
+            {
+              "id": "2",
+              "title": "MuscleBlaze Whey PR",
+              "subtitle": "4.4 lb Chocolate Fudge",
+              "currentPrice": "5609",
+              "originalPrice": "6999",
+              "discount": "19% off",
+              "badge": "Trusted",
+              "image": "https://img8.hkrtcdn.com/34084/prd_3408347-MuscleBlaze-Biozyme-Whey-PR-4.4-lb-Chocolate-Fudge_c_m.jpg",
+              "item": "whey protein",
+              "quantity": 1
+            }
+          ],
+          "shippingAddress": {
+            "fullName": "rihen",
+            "phone": "1234567890",
+            "addressLine1": "kinfra",
+            "addressLine2": "kinfra",
+            "landmark": "university",
+            "city": "kozhikode",
+            "state": "state",
+            "pincode": "673305"
+          },
+          "paymentMethod": "Cash on Delivery",
+          "subtotal": 5609,
+          "shipping": 0,
+          "tax": 1009.62,
+          "total": 6618.62,
+          "orderDate": "2025-10-20T13:01:52.321Z",
           "status": "Processing"
         }
       ]
     },
     {
-      "id": "f6d0",
-      "name": "alen",
-      "email": "alen@gmail.com",
-      "password": "alen123",
+      "id": "35cc",
+      "name": "aleena",
+      "email": "aleena@gmail.com",
+      "password": "Aleena!123",
+      "wishlist": [],
+      "cart": [],
+      "orders": []
+    },
+    {
+      "id": "deb7",
+      "name": "sinan",
+      "email": "sinan@gmail.com",
+      "password": "Sinan@123",
       "wishlist": [
-        {
-          "id": "1",
-          "title": "WellCore Performance Whey",
-          "subtitle": "3.85 lb Rich Chocolate",
-          "currentPrice": "4679",
-          "originalPrice": "5599",
-          "discount": "16% off",
-          "badge": "Best Seller",
-          "image": "./product1.jpg",
-          "item": "whey protein"
-        },
         {
           "id": "3",
           "title": "GNC Gold 100% Whey",
@@ -680,106 +505,12 @@
           "originalPrice": "8099",
           "discount": "21% off",
           "badge": "Best Seller",
-          "image": "./GNC-100%.jpg",
-          "item": "whey protein"
-        },
-        {
-          "id": "4",
-          "title": "MuscleTech NitroTech Whey Gold",
-          "subtitle": "2 lb Cookies & Cream",
-          "currentPrice": "3299",
-          "originalPrice": "4499",
-          "discount": "27% off",
-          "badge": "Best Seller",
-          "image": "./muscletech-100%.png",
-          "item": "whey protein"
-        },
-        {
-          "id": "7",
-          "title": "MuscleBlaze Iso-Zero",
-          "subtitle": "2 lb Kesar Thandai",
-          "currentPrice": "3899",
-          "originalPrice": "5199",
-          "discount": "25% off",
-          "badge": "Best On Demand",
-          "image": "https://img6.hkrtcdn.com/41474/pck_4147335_o.jpg",
+          "image": "https://images-eu.ssl-images-amazon.com/images/I/61a-LrnRvwL._AC_UL210_SR210,210_.jpg",
           "item": "whey protein"
         }
       ],
-      "cart": [
-        {
-          "id": "7",
-          "title": "MuscleBlaze Iso-Zero",
-          "subtitle": "2 lb Kesar Thandai",
-          "currentPrice": "3899",
-          "originalPrice": "5199",
-          "discount": "25% off",
-          "badge": "Best On Demand",
-          "image": "https://img6.hkrtcdn.com/41474/pck_4147335_o.jpg",
-          "item": "whey protein",
-          "quantity": 1
-        }
-      ],
-      "orders": [
-        {
-          "orderId": "2B72AFH3K",
-          "items": [
-            {
-              "id": "3",
-              "title": "GNC Gold 100% Whey",
-              "subtitle": "4.4 lb Double Rich Chocolate",
-              "currentPrice": "6319",
-              "originalPrice": "8099",
-              "discount": "21% off",
-              "badge": "Best Seller",
-              "image": "./GNC-100%.jpg",
-              "item": "whey protein",
-              "quantity": 5
-            },
-            {
-              "id": "4",
-              "title": "MuscleTech NitroTech Whey Gold",
-              "subtitle": "2 lb Cookies & Cream",
-              "currentPrice": "3299",
-              "originalPrice": "4499",
-              "discount": "27% off",
-              "badge": "Best Seller",
-              "image": "./muscletech-100%.png",
-              "item": "whey protein",
-              "quantity": 1
-            },
-            {
-              "id": "1",
-              "title": "WellCore Performance Whey",
-              "subtitle": "3.85 lb Rich Chocolate",
-              "currentPrice": "4679",
-              "originalPrice": "5599",
-              "discount": "16% off",
-              "badge": "Best Seller",
-              "image": "./product1.jpg",
-              "item": "whey protein",
-              "quantity": 1
-            }
-          ],
-          "shippingAddress": {
-            "fullName": "alen ",
-            "phone": "8075608994",
-            "addressLine1": "kinfra it park",
-            "addressLine2": "NH 66",
-            "landmark": "univercity",
-            "city": "kozhikode",
-            "state": "kerala",
-            "pincode": "673305"
-          },
-          "paymentMethod": "Cash on Delivery",
-          "subtotal": 39573,
-          "shipping": 0,
-          "tax": 7123.139999999999,
-          "total": 46696.14,
-          "orderDate": "2025-10-18T08:40:41.467Z",
-          "status": "Processing"
-        }
-      ]
+      "cart": [],
+      "orders": []
     }
   ]
 }

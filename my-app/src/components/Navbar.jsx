@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import { Search, ShoppingCart, User, Menu, X, Heart } from "lucide-react";
 import { useNavigate, Link } from "react-router-dom";
 import { UserContext } from "../Context/UserContext";
-import Logo from  "../assets/prowellBlue.png";
+import Logo from "../assets/prowellBlue.png"
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
