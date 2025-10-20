@@ -1,12 +1,13 @@
 import React from 'react';
 import { Facebook, Twitter, Instagram, Youtube, MapPin, Phone, Mail, Clock, Heart } from 'lucide-react';
+import FooterImg from "../assets/footer-bg.png"
 
 function Footer() {
   return (
     <footer
       className="bg-gray-900 text-white relative overflow-hidden"
       style={{
-        backgroundImage: `url('./footer-bg.png')`,
+        backgroundImage: `url(${FooterImg})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat'

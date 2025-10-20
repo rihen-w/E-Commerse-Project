@@ -26,8 +26,7 @@ export const UserProvider = ({ children }) => {
     }
   });
 
-  /** ----------------- WISHLIST STATE SYNC WISHLIST WITH USER ----------------- **/
-  
+  /** ----------------- WISHLIST STATE ----------------- **/
   const [wishlist, setWishlist] = useState([]);
   useEffect(() => {
     if (user?.wishlist) setWishlist(user.wishlist);
@@ -36,25 +35,29 @@ export const UserProvider = ({ children }) => {
 
   /** ----------------- SYNC TO LOCALSTORAGE + DB ----------------- **/
   useEffect(() => {
-    if (!user) return;
-
-    // Update localStorage
     try {
-      localStorage.setItem("user", JSON.stringify({ ...user, wishlist }));
-      localStorage.setItem("cart", JSON.stringify(cart));
+      if (user) {
+        // Save user and cart when logged in
+        localStorage.setItem("user", JSON.stringify({ ...user, wishlist }));
+        localStorage.setItem("cart", JSON.stringify(cart));
+
+        // Debounced DB update
+        const timer = setTimeout(() => {
+          axios
+            .patch(`http://localhost:3005/users/${user.id}`, { ...user, wishlist, cart })
+            .then(() => console.log("Synced user data with DB"))
+            .catch((err) => console.error("Failed to update user in DB", err));
+        }, 500);
+
+        return () => clearTimeout(timer);
+      } else {
+        // Remove cart and user from localStorage when logged out
+        localStorage.removeItem("user");
+        localStorage.removeItem("cart");
+      }
     } catch (err) {
-      console.error("Failed to save user/cart to localStorage", err);
+      console.error("Failed to sync user/cart to localStorage", err);
     }
-
-    // Debounced DB update to prevent spam
-    const timer = setTimeout(() => {
-      axios
-        .patch(`http://localhost:3005/users/${user.id}`, { ...user, wishlist, cart })
-        .then(() => console.log(" Synced user data with DB"))
-        .catch((err) => console.error(" Failed to update user in DB", err));
-    }, 500);
-
-    return () => clearTimeout(timer);
   }, [user, wishlist, cart]);
 
   /** ----------------- LOAD USER DATA ON LOGIN ----------------- **/
@@ -71,7 +74,7 @@ export const UserProvider = ({ children }) => {
         setCart(res.data.cart || []);
         setWishlist(res.data.wishlist || []);
       } catch (err) {
-        console.error(" Failed to fetch user data from DB", err);
+        console.error("Failed to fetch user data from DB", err);
       }
     };
 
@@ -118,8 +121,9 @@ export const UserProvider = ({ children }) => {
     setUser(null);
     setCart([]);
     setWishlist([]);
-    localStorage.removeItem("user");
-    localStorage.removeItem("cart");
+    // localStorage.removeItem("user");
+    // localStorage.removeItem("cart");
+    // handled by useEffect now
   };
 
   /** ----------------- PROVIDER ----------------- **/

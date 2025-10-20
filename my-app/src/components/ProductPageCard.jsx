@@ -1,26 +1,29 @@
+// ProductPage.jsx
 import React, { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Heart, Star, Award } from "lucide-react";
+import { Heart, Star } from "lucide-react";
 import axios from "axios";
 import { UserContext } from "../Context/UserContext";
 
 export default function ProductPage() {
+  const [selectedImage, setSelectedImage] = useState(0);
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const { id } = useParams();
-  const navigate = useNavigate();
+
+const navigate = useNavigate();
+
+const handleBuyNow = (product) => {
+      if (!user) {
+      navigate("/auth");
+      return;
+    }
+  navigate("/payment", { state: { product } });
+};
   const { user, setUser, cart, setCart } = useContext(UserContext);
 
   // Local wishlist state for UI
   const [wishlist, setWishlist] = useState(user?.wishlist || []);
-
-  // Sync wishlist when user changes
-  useEffect(() => {
-    if (user?.wishlist) {
-      setWishlist(user.wishlist);
-    }
-  }, [user]);
 
   // Check if product is liked
   const liked = product ? wishlist.some((item) => item.id === product.id) : false;
@@ -28,8 +31,6 @@ export default function ProductPage() {
   // Fetch product from DB
   useEffect(() => {
     if (id) {
-      setLoading(true);
-      setError(null);
       axios
         .get(`http://localhost:3005/products/${id}`)
         .then((response) => {
@@ -37,20 +38,11 @@ export default function ProductPage() {
           setLoading(false);
         })
         .catch((err) => {
-          console.error("Error fetching product:", err);
-          setError("Failed to load product");
+          console.error(err);
           setLoading(false);
         });
     }
   }, [id]);
-
-  const handleBuyNow = (product) => {
-    if (!user) {
-      navigate("/auth");
-      return;
-    }
-    navigate("/payment", { state: { product } });
-  };
 
   // Add to Cart
   const handleAddToCart = (product) => {
@@ -69,9 +61,7 @@ export default function ProductPage() {
       : [...cart, { ...product, quantity: 1 }];
 
     setCart(updatedCart);
-    
-    // Show feedback
-    alert("Product added to cart!");
+    console.log("Cart updated:", updatedCart);
   };
 
   // Toggle Wishlist
@@ -86,10 +76,11 @@ export default function ProductPage() {
       ? wishlist.filter((item) => item.id !== product.id)
       : [...wishlist, product];
 
-    setWishlist(updatedWishlist);
+    setWishlist(updatedWishlist); // Update local UI
 
     const updatedUser = { ...user, wishlist: updatedWishlist };
     setUser(updatedUser);
+    localStorage.setItem("user", JSON.stringify(updatedUser));
 
     try {
       await axios.patch(`http://localhost:3005/users/${user.id}`, {
@@ -97,171 +88,136 @@ export default function ProductPage() {
       });
     } catch (err) {
       console.error("Failed to update wishlist in DB:", err);
-      // Revert on error
-      setWishlist(user?.wishlist || []);
     }
   };
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-teal-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-16 h-16 border-4 border-[#2eb4ac] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-gray-600 text-lg">Loading product...</p>
         </div>
       </div>
     );
   }
 
-  if (error || !product) {
+  if (!product) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="text-center">
-          <p className="text-gray-600 text-lg mb-4">{error || "Product not found"}</p>
-          <button
-            onClick={() => navigate("/")}
-            className="px-6 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600 transition-colors"
-          >
-            Go Back Home
-          </button>
-        </div>
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-gray-600 text-lg">Product not found</p>
       </div>
     );
   }
-
-
+  {console.log(product)}
   return (
-    <div className="min-h-screen bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-          {/* Left - Image Section */}
-          <div className="flex flex-col">
-            <div className="relative bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl overflow-hidden">
-              <div className="aspect-square flex items-center justify-center p-8">
+    <div className="min-h-screen bg-white px-4 sm:px-6 md:px-8 lg:px-12 pt-5">
+      <div className="max-w-[1600px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-4">
+          {/* Left - Images */}
+          <div className="p-4 sm:p-6 md:p-8 lg:p-12">
+            <div className="max-w-[600px] mx-auto">
+              <div className="relative bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl mb-6">
                 <img
                   src={product.image}
                   alt={product.title}
-                  className="w-full h-full object-contain"
-                  onError={(e) => {
-                    e.target.src = "https://via.placeholder.com/500?text=Image+Not+Available";
-                  }}
+                  className="w-250 h-150 object-contain drop-shadow-2xl rounded-2xl p-8"
                 />
-              </div>
-              
-              {/* Veg Icon */}
-              <div className="absolute top-4 left-4 w-8 h-8 border-2 border-green-600 rounded-md flex items-center justify-center bg-white shadow-sm">
-                <div className="w-4 h-4 bg-green-600 rounded-full"></div>
-              </div>
-              
-              {/* Wishlist Button */}
-              <div className="absolute top-4 right-4">
-                <button
-                  onClick={() => toggleWishlist(product)}
-                  className="p-2.5 bg-white rounded-full shadow-md hover:scale-110 transition-transform active:scale-95"
-                  aria-label={liked ? "Remove from wishlist" : "Add to wishlist"}
-                >
-                  <Heart
-                    className={`w-6 h-6 ${
-                      liked ? "fill-red-500 text-red-500" : "text-gray-400"
-                    }`}
-                  />
-                </button>
+                {/* Veg Icon */}
+                <div className="absolute top-6 left-6 w-7 h-7 border-[2.5px] border-green-600 rounded-md flex items-center justify-center bg-white">
+                  <div className="w-3.5 h-3.5 bg-green-600 rounded-full"></div>
+                </div>
+                {/* Wishlist */}
+                <div className="absolute top-6 right-6">
+                  <button
+                    onClick={() => toggleWishlist(product)}
+                    className="p-2 bg-white rounded-full shadow-sm hover:scale-110 transition-transform"
+                  >
+                    <Heart
+                      className={`w-5 h-5 ${
+                        liked ? "fill-red-500 text-red-500" : "text-gray-400"
+                      }`}
+                    />
+                  </button>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Right - Product Details */}
-          <div className="flex flex-col space-y-6">
-            {/* Title & Subtitle */}
+          {/* Right - Details */}
+          <div className="p-4 sm:p-6 md:p-8 lg:p-12 space-y-6">
+            {/* Title */}
             <div>
-              <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
+              <h1 className="text-3xl lg:text-[38px] font-bold text-gray-900 mb-3">
                 {product.title}
               </h1>
-              <p className="text-lg text-gray-600">{product.subtitle}</p>
+              <p className="text-lg text-gray-600 font-medium">{product.subtitle}</p>
             </div>
 
-            {/* Rating (if available) */}
-            {product.rating && (
-              <div className="flex items-center gap-2">
-                <div className="flex items-center gap-1">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className={`w-5 h-5 ${
-                        i < Math.floor(product.rating)
-                          ? "fill-yellow-400 text-yellow-400"
-                          : "text-gray-300"
-                      }`}
-                    />
-                  ))}
-                </div>
-                <span className="text-gray-600">({product.rating}/5)</span>
-              </div>
-            )}
-
-            {/* Price Section */}
-            <div className="space-y-2">
+            {/* Price */}
+            <div className="space-y-3">
               <div className="flex items-baseline gap-4 flex-wrap">
-                <span className="text-4xl lg:text-5xl font-bold text-gray-900">
+                <span className="text-5xl font-bold text-gray-900">
                   ₹{product.currentPrice}
                 </span>
-                <span className="text-xl text-gray-400 line-through">
+                <span className="text-2xl text-gray-400 line-through">
                   ₹{product.originalPrice}
                 </span>
-                <span className="text-xl font-bold text-green-600">
+                <span className="text-2xl font-bold text-green-600">
                   {product.discount}
                 </span>
               </div>
-              <p className="text-sm text-gray-500">Inclusive of all taxes</p>
+              <p className="text-sm text-gray-500">Inclusive all Taxes</p>
             </div>
 
             {/* Selected Flavor */}
-            <div className="border-2 border-teal-500 rounded-xl p-4 bg-teal-50">
-              <p className="text-gray-900">
-                <span className="font-medium">Selected: </span>
-                <span className="font-semibold">{product.subtitle}</span>
-              </p>
+            <div className="border-[3px] border-[#2eb4ac] rounded-xl p-5 bg-yellow-50/30">
+              <span className="text-gray-900 font-medium">Choosed Flavour and Weight: </span>
+              <span className="text-gray-900 font-semibold">{product.subtitle}</span>
             </div>
 
-            {/* Action Buttons */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+            {/* Buttons */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <button
                 onClick={() => handleAddToCart(product)}
-                className="w-full bg-white border-2 border-gray-300 text-gray-900 font-semibold py-3.5 px-6 rounded-xl 
-                  hover:bg-gray-50 hover:border-gray-400 active:scale-95 transition-all duration-150 text-base"
+                className="w-full bg-white border border-gray-300 text-gray-900 font-medium py-2 rounded-md text-xs 
+                  hover:bg-gray-50 active:scale-95 focus:outline-none focus:ring-2 focus:ring-[#2eb4ac] 
+                  focus:ring-offset-2 transition-transform duration-150"
               >
                 Add to Cart
               </button>
               <button
-                onClick={() => handleBuyNow(product)}
-                className="w-full bg-teal-500 text-white font-bold py-3.5 px-6 rounded-xl 
-                  hover:bg-teal-600 active:scale-95 transition-all duration-150 text-base shadow-md hover:shadow-lg"
+                  onClick={() => handleBuyNow(product)}
+                className="bg-[#2eb4ac] text-black font-bold py-4 px-6 rounded-xl hover:bg-[#2eb4ac] transition-all text-lg shadow-md hover:shadow-lg"
               >
                 BUY NOW
               </button>
             </div>
 
-            {/* Features Section */}
-            <div className="mt-6 space-y-4">
-              <div className="flex gap-4 items-start bg-gray-50 rounded-xl p-5 border border-gray-200">
-                <div className="w-12 h-12 bg-white rounded-full flex-shrink-0 flex items-center justify-center border-2 border-gray-200 shadow-sm">
-                  <Award className="w-6 h-6 text-teal-600" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-gray-900 mb-1 text-base">USA Patented</h4>
-                  <p className="text-gray-600 text-sm leading-relaxed">
-                    Biozyme range proven for 50% higher protein absorption
-                  </p>
-                </div>
+            {/* Features */}
+            <div className="flex gap-5 items-start bg-gray-50 rounded-xl p-6 border border-gray-200">
+              <div className="w-14 h-14 bg-white rounded-full flex-shrink-0 flex items-center justify-center border-2 border-gray-200 shadow-sm">
+                <img
+                  src="https://cdn-icons-png.flaticon.com/128/5968/5968517.png"
+                  alt="USA Patent"
+                  className="w-8 h-8"
+                  
+                />
+              </div>
+              <div>
+                <h4 className="font-bold text-gray-900 mb-1.5 text-lg">USA Patented</h4>
+                <p className="text-gray-600 text-base leading-relaxed">
+                  Biozyme range proven for 50% higher protein absorption
+                </p>
               </div>
             </div>
           </div>
         </div>
 
         {/* About Section */}
-        <div className="mt-12 bg-gray-50 rounded-2xl p-8 lg:p-12 border border-gray-200">
-          <div className="max-w-4xl">
-            <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-6">About Prowell</h2>
+        <div className="bg-gray-50 border-t border-gray-200 p-8 lg:p-12">
+          <div className="max-w-5xl">
+            <h2 className="text-3xl font-bold text-gray-900 mb-6">About Prowell</h2>
             <div className="space-y-4 text-gray-700 leading-relaxed">
               <p>
                 Prowell is a leading sports nutrition and wellness brand committed to empowering individuals on their fitness journey.
@@ -278,5 +234,5 @@ export default function ProductPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }
