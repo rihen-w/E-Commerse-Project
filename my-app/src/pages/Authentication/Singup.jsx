@@ -64,6 +64,7 @@ export default function Signup({ onSwitch }) {
         name: form.name,
         email: form.email,
         password: form.password,
+        isBlock : false,
         wishlist: [],
         cart: [],
         orders: [],

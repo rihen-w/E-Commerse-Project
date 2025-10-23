@@ -9,7 +9,8 @@
       "discount": "16% off",
       "badge": "Best Seller",
       "image": "https://img8.hkrtcdn.com/39078/prd_3907787-MuscleBlaze-Biozyme-Performance-Whey-4.4-lb-Rich-Chocolate_o.jpg",
-      "item": "whey protein"
+      "item": "whey protein",
+      "stock": 17
     },
     {
       "id": "2",
@@ -333,35 +334,21 @@
   ],
   "users": [
     {
-      "id": "01aa",
-      "name": "Rihen A",
-      "email": "rihena@gmail.com",
+      "id": "01",
+      "name": "Rihen",
+      "email": "rihenadmin@gmail.com",
+      "password": "Rihen!12345",
+      "isAdmin": true,
+      "wishlist": [],
+      "cart": []
+    },
+    {
+      "id": "3bfd",
+      "name": "rihenwaltx",
+      "email": "rihenww@gmail.com",
       "password": "Rihen!123",
+      "isBlock": false,
       "wishlist": [
-        {
-          "id": "3",
-          "title": "GNC Gold 100% Whey",
-          "subtitle": "4.4 lb Double Rich Chocolate",
-          "currentPrice": "6319",
-          "originalPrice": "8099",
-          "discount": "21% off",
-          "badge": "Best Seller",
-          "image": "https://images-eu.ssl-images-amazon.com/images/I/61a-LrnRvwL._AC_UL210_SR210,210_.jpg",
-          "item": "whey protein"
-        },
-        {
-          "id": "4",
-          "title": "MuscleTech NitroTech Whey Gold",
-          "subtitle": "2 lb Cookies & Cream",
-          "currentPrice": "3299",
-          "originalPrice": "4499",
-          "discount": "27% off",
-          "badge": "Best Seller",
-          "image": "https://international.muscletech.com/wp-content/uploads/2022/06/muscletech-int-nitro-tech-100-whey-gold.png",
-          "item": "whey protein"
-        }
-      ],
-      "cart": [
         {
           "id": "1",
           "title": "WellCore Performance Whey",
@@ -372,270 +359,10 @@
           "badge": "Best Seller",
           "image": "https://img8.hkrtcdn.com/39078/prd_3907787-MuscleBlaze-Biozyme-Performance-Whey-4.4-lb-Rich-Chocolate_o.jpg",
           "item": "whey protein",
-          "quantity": 2
-        }
-      ],
-      "orders": [
-        {
-          "orderId": "HRR1UW04M",
-          "items": [
-            {
-              "id": "3",
-              "title": "GNC Gold 100% Whey",
-              "subtitle": "4.4 lb Double Rich Chocolate",
-              "currentPrice": "6319",
-              "originalPrice": "8099",
-              "discount": "21% off",
-              "badge": "Best Seller",
-              "image": "https://images-eu.ssl-images-amazon.com/images/I/61a-LrnRvwL._AC_UL210_SR210,210_.jpg",
-              "item": "whey protein",
-              "quantity": 1
-            }
-          ],
-          "shippingAddress": {
-            "fullName": "rihen aleena",
-            "phone": "8075608994",
-            "addressLine1": "kinfra",
-            "addressLine2": "nh 66",
-            "landmark": "university",
-            "city": "kozhikode",
-            "state": "kerala",
-            "pincode": "673305"
-          },
-          "paymentMethod": "Cash on Delivery",
-          "subtotal": 6319,
-          "shipping": 0,
-          "tax": 1137.4199999999998,
-          "total": 7456.42,
-          "orderDate": "2025-10-20T13:00:58.055Z",
-          "status": "Processing"
-        },
-        {
-          "orderId": "GONZAEYBT",
-          "items": [
-            {
-              "id": "2",
-              "title": "MuscleBlaze Whey PR",
-              "subtitle": "4.4 lb Chocolate Fudge",
-              "currentPrice": "5609",
-              "originalPrice": "6999",
-              "discount": "19% off",
-              "badge": "Trusted",
-              "image": "https://img8.hkrtcdn.com/34084/prd_3408347-MuscleBlaze-Biozyme-Whey-PR-4.4-lb-Chocolate-Fudge_c_m.jpg",
-              "item": "whey protein",
-              "quantity": 1
-            }
-          ],
-          "shippingAddress": {
-            "fullName": "rihen",
-            "phone": "1234567890",
-            "addressLine1": "kinfra",
-            "addressLine2": "kinfra",
-            "landmark": "university",
-            "city": "kozhikode",
-            "state": "state",
-            "pincode": "673305"
-          },
-          "paymentMethod": "Cash on Delivery",
-          "subtotal": 5609,
-          "shipping": 0,
-          "tax": 1009.62,
-          "total": 6618.62,
-          "orderDate": "2025-10-20T13:01:52.321Z",
-          "status": "Processing"
-        }
-      ]
-    },
-    {
-      "id": "35cc",
-      "name": "aleena",
-      "email": "aleena@gmail.com",
-      "password": "Aleena!123",
-      "wishlist": [
-        {
-          "id": "11",
-          "title": "MuscleBlaze Creatine Monohydrate",
-          "subtitle": "300 g",
-          "currentPrice": "799",
-          "originalPrice": "999",
-          "discount": "20% off",
-          "badge": "Verified",
-          "image": "https://img2.hkrtcdn.com/35711/prd_3571061-MuscleBlaze-Creatine-Monohydrate-CreAMP-0.88-lb-Unflavoured_c_m.jpg",
-          "item": "creatine"
-        },
-        {
-          "id": "12",
-          "title": "ON Creatine",
-          "subtitle": "300 g",
-          "currentPrice": "1199",
-          "originalPrice": "1499",
-          "discount": "20% off",
-          "badge": "Verified",
-          "image": "https://images-cdn.ubuy.co.in/681ac7e795e292e4d4080787-optimum-nutrition-micronized-creatine.jpg",
-          "item": "creatine"
-        },
-        {
-          "id": "13",
-          "title": "WellCore Fruit Fution Creatine Monohydrate",
-          "subtitle": "500 g",
-          "currentPrice": "1499",
-          "originalPrice": "1999",
-          "discount": "25% off",
-          "badge": "Trusted",
-          "image": "https://m.media-amazon.com/images/I/71wLbVnsgSL._AC_UF1000,1000_QL80_.jpg",
-          "item": "creatine"
-        },
-        {
-          "id": "14",
-          "title": "MuscleBlaze Creatine Advanced",
-          "subtitle": "250 g",
-          "currentPrice": "899",
-          "originalPrice": "1099",
-          "discount": "18% off",
-          "badge": "Best On Demand",
-          "image": "https://img4.hkrtcdn.com/37800/prd_3779953-MuscleBlaze-CreaPRO-Creatine-with-Creapure-Powder-from-Germany-0.55-lb-Unflavoured_c_m.jpg",
-          "item": "creatine"
-        },
-        {
-          "id": "15",
-          "title": "ON Creatine Powder",
-          "subtitle": "500 g",
-          "currentPrice": "1399",
-          "originalPrice": "1699",
-          "discount": "18% off",
-          "badge": "Verified",
-          "image": "https://images-cdn.ubuy.co.in/681ac7e795e292e4d4080787-optimum-nutrition-micronized-creatine.jpg",
-          "item": "creatine"
+          "stock": 17
         }
       ],
       "cart": [
-        {
-          "id": "11",
-          "title": "MuscleBlaze Creatine Monohydrate",
-          "subtitle": "300 g",
-          "currentPrice": "799",
-          "originalPrice": "999",
-          "discount": "20% off",
-          "badge": "Verified",
-          "image": "https://img2.hkrtcdn.com/35711/prd_3571061-MuscleBlaze-Creatine-Monohydrate-CreAMP-0.88-lb-Unflavoured_c_m.jpg",
-          "item": "creatine",
-          "quantity": 1
-        },
-        {
-          "id": "12",
-          "title": "ON Creatine",
-          "subtitle": "300 g",
-          "currentPrice": "1199",
-          "originalPrice": "1499",
-          "discount": "20% off",
-          "badge": "Verified",
-          "image": "https://images-cdn.ubuy.co.in/681ac7e795e292e4d4080787-optimum-nutrition-micronized-creatine.jpg",
-          "item": "creatine",
-          "quantity": 1
-        },
-        {
-          "id": "13",
-          "title": "WellCore Fruit Fution Creatine Monohydrate",
-          "subtitle": "500 g",
-          "currentPrice": "1499",
-          "originalPrice": "1999",
-          "discount": "25% off",
-          "badge": "Trusted",
-          "image": "https://m.media-amazon.com/images/I/71wLbVnsgSL._AC_UF1000,1000_QL80_.jpg",
-          "item": "creatine",
-          "quantity": 1
-        },
-        {
-          "id": "14",
-          "title": "MuscleBlaze Creatine Advanced",
-          "subtitle": "250 g",
-          "currentPrice": "899",
-          "originalPrice": "1099",
-          "discount": "18% off",
-          "badge": "Best On Demand",
-          "image": "https://img4.hkrtcdn.com/37800/prd_3779953-MuscleBlaze-CreaPRO-Creatine-with-Creapure-Powder-from-Germany-0.55-lb-Unflavoured_c_m.jpg",
-          "item": "creatine",
-          "quantity": 1
-        },
-        {
-          "id": "15",
-          "title": "ON Creatine Powder",
-          "subtitle": "500 g",
-          "currentPrice": "1399",
-          "originalPrice": "1699",
-          "discount": "18% off",
-          "badge": "Verified",
-          "image": "https://images-cdn.ubuy.co.in/681ac7e795e292e4d4080787-optimum-nutrition-micronized-creatine.jpg",
-          "item": "creatine",
-          "quantity": 1
-        }
-      ],
-      "orders": []
-    },
-    {
-      "id": "deb7",
-      "name": "sinan",
-      "email": "sinan@gmail.com",
-      "password": "Sinan@123",
-      "wishlist": [
-        {
-          "id": "3",
-          "title": "GNC Gold 100% Whey",
-          "subtitle": "4.4 lb Double Rich Chocolate",
-          "currentPrice": "6319",
-          "originalPrice": "8099",
-          "discount": "21% off",
-          "badge": "Best Seller",
-          "image": "https://images-eu.ssl-images-amazon.com/images/I/61a-LrnRvwL._AC_UL210_SR210,210_.jpg",
-          "item": "whey protein"
-        },
-        {
-          "id": "10",
-          "title": "ON Gold Standard 100% Whey Protein",
-          "subtitle": "2.2 lb Chocolate Brownie",
-          "currentPrice": "3299",
-          "originalPrice": "4099",
-          "discount": "20% off",
-          "badge": "Best Seller",
-          "image": "https://m.media-amazon.com/images/I/61Cg+W3Ph7L._AC_UF1000,1000_QL80_.jpg",
-          "item": "whey protein"
-        },
-        {
-          "id": "9",
-          "title": "MuscleTech NitroTech Ultimate Muscle Building Whey Protein",
-          "subtitle": "5 lb Gourmet Chocolate",
-          "currentPrice": "8999",
-          "originalPrice": "10999",
-          "discount": "18% off",
-          "badge": "Premium",
-          "image": "https://international.muscletech.com/wp-content/uploads/2025/10/muscletech-int-nitro-tech-whey-protein.png",
-          "item": "whey protein"
-        },
-        {
-          "id": "11",
-          "title": "MuscleBlaze Creatine Monohydrate",
-          "subtitle": "300 g",
-          "currentPrice": "799",
-          "originalPrice": "999",
-          "discount": "20% off",
-          "badge": "Verified",
-          "image": "https://img2.hkrtcdn.com/35711/prd_3571061-MuscleBlaze-Creatine-Monohydrate-CreAMP-0.88-lb-Unflavoured_c_m.jpg",
-          "item": "creatine"
-        }
-      ],
-      "cart": [
-        {
-          "id": "3",
-          "title": "GNC Gold 100% Whey",
-          "subtitle": "4.4 lb Double Rich Chocolate",
-          "currentPrice": "6319",
-          "originalPrice": "8099",
-          "discount": "21% off",
-          "badge": "Best Seller",
-          "image": "https://images-eu.ssl-images-amazon.com/images/I/61a-LrnRvwL._AC_UL210_SR210,210_.jpg",
-          "item": "whey protein",
-          "quantity": 1
-        },
         {
           "id": "4",
           "title": "MuscleTech NitroTech Whey Gold",
@@ -647,32 +374,53 @@
           "image": "https://international.muscletech.com/wp-content/uploads/2022/06/muscletech-int-nitro-tech-100-whey-gold.png",
           "item": "whey protein",
           "quantity": 1
-        },
-        {
-          "id": "5",
-          "title": "ON Gold Standard Whey",
-          "subtitle": "5 lb Vanilla Ice Cream",
-          "currentPrice": "6999",
-          "originalPrice": "8999",
-          "discount": "22% off",
-          "badge": "Best Seller",
-          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdQKBOBFkzf422brd4FVL97RHYR8KBbjOj7Q&s",
-          "item": "whey protein",
-          "quantity": 1
-        },
-        {
-          "id": "10",
-          "title": "ON Gold Standard 100% Whey Protein",
-          "subtitle": "2.2 lb Chocolate Brownie",
-          "currentPrice": "3299",
-          "originalPrice": "4099",
-          "discount": "20% off",
-          "badge": "Best Seller",
-          "image": "https://m.media-amazon.com/images/I/61Cg+W3Ph7L._AC_UF1000,1000_QL80_.jpg",
-          "item": "whey protein",
-          "quantity": 1
         }
       ],
+      "orders": [
+        {
+          "orderId": "NL7SUBQ1G",
+          "items": [
+            {
+              "id": "12",
+              "title": "ON Creatine",
+              "subtitle": "300 g",
+              "currentPrice": "1199",
+              "originalPrice": "1499",
+              "discount": "20% off",
+              "badge": "Verified",
+              "image": "https://images-cdn.ubuy.co.in/681ac7e795e292e4d4080787-optimum-nutrition-micronized-creatine.jpg",
+              "item": "creatine",
+              "quantity": 1
+            }
+          ],
+          "shippingAddress": {
+            "fullName": "rihenwaltx",
+            "phone": "8075608994",
+            "addressLine1": "kinfra IT park ",
+            "addressLine2": "NH 66",
+            "landmark": "Calicut university",
+            "city": "kozhikode",
+            "state": "kerala",
+            "pincode": "673305"
+          },
+          "paymentMethod": "Cash on Delivery",
+          "subtotal": 1199,
+          "shipping": 0,
+          "tax": 215.82,
+          "total": 1414.82,
+          "orderDate": "2025-10-23T14:33:04.578Z",
+          "status": "Completed"
+        }
+      ]
+    },
+    {
+      "id": "f865",
+      "name": "aleena",
+      "email": "aleena@gmail.com",
+      "password": "Aleena!123",
+      "isBlock": false,
+      "wishlist": [],
+      "cart": [],
       "orders": []
     }
   ]

@@ -10,7 +10,7 @@ export default function ProtectedRoute({ children }) {
     // Not logged in → redirect to login page
     return <Navigate to="/auth" replace />;
   }
-
+  
   // Logged in → show the page
   return children;
 }

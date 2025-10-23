@@ -9,7 +9,7 @@ import OurBrands from "../components/OurBrands"
 
 export default function Home(){
     return(
-        <>
+        <>  
             <Carousel/>
             <ThirdProducts/>
             <SecondProducts/>

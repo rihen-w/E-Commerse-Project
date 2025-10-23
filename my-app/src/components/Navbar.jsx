@@ -51,6 +51,8 @@ export default function Navbar() {
       .catch((err) => console.error(err));
   }, [searchTerm]);
 
+  {console.log(user)}
+
   return (
     <>
       <nav className="bg-white shadow-md sticky top-0 z-50">
@@ -88,6 +90,11 @@ export default function Navbar() {
               >
                 Shop
               </Link>
+
+              {user?.isAdmin && (
+                <Link to="/admin">Admin</Link>
+              )}
+          
             </div>
 
             {/* Desktop Search */}

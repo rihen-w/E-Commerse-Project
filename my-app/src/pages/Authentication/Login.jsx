@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../Context/UserContext";
+import Swal from "sweetalert2"; 
 
 export default function Login({ onSwitch }) {
   const { setUser } = useContext(UserContext);
@@ -19,16 +20,46 @@ export default function Login({ onSwitch }) {
       });
 
       if (data.length === 0) {
-        alert("Invalid email or password");
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Invalid email or password!',
+        });
         return;
       }
 
       const user = data[0];
+
+      // Check if blocked
+      if (user.isBlock) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Access Denied',
+          text: 'Your account is blocked. Please contact the admin.',
+          confirmButtonColor: '#2EB4AC'
+        });
+        return;
+      }
+
+      // Successful login
       setUser(user);
       navigate("/");
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Welcome!',
+        text: `Hello, ${user.name}!`,
+        timer: 1500,
+        showConfirmButton: false,
+      });
+
     } catch (err) {
       console.error(err);
-      alert("Login failed");
+      Swal.fire({
+        icon: 'error',
+        title: 'Login Failed',
+        text: 'Something went wrong. Please try again.',
+      });
     }
   };
 
