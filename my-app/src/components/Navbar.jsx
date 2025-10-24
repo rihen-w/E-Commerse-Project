@@ -203,7 +203,7 @@ export default function Navbar() {
                     : <User className="h-6 w-6" />}
                 </div>
                 <span className="text-gray-700 font-semibold">
-                  {user?.name || "Login / Sign Up"}
+                  {user?.name ? `Hello, ${user.name}` : "Login / Sign Up"}
                 </span>
               </div>
             </div>
