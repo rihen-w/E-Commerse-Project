@@ -57,24 +57,23 @@ export default function Navbar() {
     <>
       <nav className="bg-white shadow-md sticky top-0 z-50">
         <div className="mx-auto px-3 md:mx-20">
-          <div className="flex items-center justify-between h-24">
-            {/* Mobile menu & Logo */}
-            <div className="flex items-center gap-3">
-              <button
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="md:hidden p-3"
-              >
-                <Menu className="h-8 w-8" />
-              </button>
-
-              <Link to="/">
-                <img
-                  className="w-73 pr-13"
-                  src={Logo}
-                  alt="Prowell"
-                />
-              </Link>
-            </div>
+<div className="flex items-center justify-between h-24">
+  {/* Mobile menu & Logo */}
+  <div className="flex items-center gap-3">
+    <button
+      onClick={() => setIsMenuOpen(!isMenuOpen)}
+      className="md:hidden p-3"
+    >
+      <Menu className="h-8 w-8" />
+    </button>
+    <Link to="/" className="flex-shrink-0">
+      <img
+        className="h-10 md:h-15 lg:h-15 w-auto pr-10"
+        src={Logo}
+        alt="Prowell"
+      />
+    </Link>
+  </div>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-10">
