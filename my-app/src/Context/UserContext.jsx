@@ -16,74 +16,69 @@ export const UserProvider = ({ children }) => {
   });
 
   /** ----------------- CART STATE ----------------- **/
-  const [cart, setCart] = useState(() => {
-    try {
-      const storedCart = localStorage.getItem("cart");
-      return storedCart ? JSON.parse(storedCart) : [];
-    } catch (err) {
-      console.error("Failed to parse cart from localStorage", err);
-      return [];
-    }
-  });
+  const [cart, setCart] = useState([]);
 
   /** ----------------- WISHLIST STATE ----------------- **/
   const [wishlist, setWishlist] = useState([]);
-  useEffect(() => {
-    if (user?.wishlist) setWishlist(user.wishlist);
-    else setWishlist([]);
-  }, [user]);
-
-  /** ----------------- SYNC TO LOCALSTORAGE + DB ----------------- **/
-  useEffect(() => {
-    try {
-      if (user) {
-        // Save user and cart when logged in
-        localStorage.setItem("user", JSON.stringify({ ...user, wishlist }));
-        localStorage.setItem("cart", JSON.stringify(cart));
-
-        // Debounced DB update
-        const timer = setTimeout(() => {
-          axios
-            .patch(`https://powell-895j.onrender.com/${user.id}`, { ...user, wishlist, cart })
-            .then(() => console.log("Synced user data with DB"))
-            .catch((err) => console.error("Failed to update user in DB", err));
-        }, 500);
-
-        return () => clearTimeout(timer);
-      } else {
-        // Remove cart and user from localStorage when logged out
-        localStorage.removeItem("user");
-        localStorage.removeItem("cart");
-      }
-    } catch (err) {
-      console.error("Failed to sync user/cart to localStorage", err);
-    }
-  }, [user, wishlist, cart]);
 
   /** ----------------- LOAD USER DATA ON LOGIN ----------------- **/
   useEffect(() => {
     if (!user?.id) {
+      // User logged out - clear cart and wishlist
       setCart([]);
       setWishlist([]);
       return;
     }
 
+    // User logged in - fetch their data from DB
     const fetchUserData = async () => {
       try {
-        const res = await axios.get(`https://powell-895j.onrender.com/${user.id}`);
+        const res = await axios.get(`https://powell-895j.onrender.com/users/${user.id}`);
         setCart(res.data.cart || []);
         setWishlist(res.data.wishlist || []);
       } catch (err) {
         console.error("Failed to fetch user data from DB", err);
+        // Fallback to empty arrays
+        setCart([]);
+        setWishlist([]);
       }
     };
 
     fetchUserData();
   }, [user?.id]);
 
+  /** ----------------- SYNC TO LOCALSTORAGE & DB WHEN CART/WISHLIST CHANGES ----------------- **/
+  useEffect(() => {
+    if (!user?.id) return;
+
+    // Save to localStorage
+    try {
+      localStorage.setItem("user", JSON.stringify({ ...user, wishlist }));
+      localStorage.setItem("cart", JSON.stringify(cart));
+    } catch (err) {
+      console.error("Failed to save to localStorage", err);
+    }
+
+    // Debounced DB update
+    const timer = setTimeout(() => {
+      axios
+        .patch(`https://powell-895j.onrender.com/users/${user.id}`, {
+          cart,
+          wishlist
+        })
+        .then(() => console.log("Synced user data with DB"))
+        .catch((err) => console.error("Failed to update user in DB", err));
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [user, wishlist, cart]);
+
   /** ----------------- WISHLIST HELPERS ----------------- **/
   const addToWishlist = (item) => {
-    if (!user) return;
+    if (!user) {
+      alert("Please login to add items to wishlist");
+      return;
+    }
     setWishlist((prev) => {
       if (prev.some((i) => i.id === item.id)) return prev;
       return [...prev, item];
@@ -98,7 +93,10 @@ export const UserProvider = ({ children }) => {
 
   /** ----------------- CART HELPERS ----------------- **/
   const addToCart = (item) => {
-    if (!user) return;
+    if (!user) {
+      alert("Please login to add items to cart");
+      return;
+    }
     setCart((prev) => {
       const existing = prev.find((i) => i.id === item.id);
       if (existing) {
@@ -121,9 +119,8 @@ export const UserProvider = ({ children }) => {
     setUser(null);
     setCart([]);
     setWishlist([]);
-    // localStorage.removeItem("user");
-    // localStorage.removeItem("cart");
-    // handled by useEffect now
+    localStorage.removeItem("user");
+    localStorage.removeItem("cart");
   };
 
   /** ----------------- PROVIDER ----------------- **/
