@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
-import { useLocation } from "react-router-dom";
-
-import { 
+import { useLocation, useNavigate } from "react-router-dom";
+import {
   CheckCircle2,
   ArrowLeft,
   AlertCircle,
@@ -11,7 +10,6 @@ import {
   Home,
   Package
 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 import { UserContext } from "../Context/UserContext";
 import axios from "axios";
 
@@ -19,12 +17,12 @@ const Payment = () => {
   const { user, cart, setCart, setUser } = useContext(UserContext);
   const navigate = useNavigate();
   const location = useLocation();
-  
+
   const [isProcessing, setIsProcessing] = useState(false);
   const [paymentSuccess, setPaymentSuccess] = useState(false);
   const [orderId, setOrderId] = useState("");
   const [orderTotal, setOrderTotal] = useState(0);
-  
+
   // Address form states
   const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("");
@@ -35,32 +33,37 @@ const Payment = () => {
   const [pincode, setPincode] = useState("");
   const [landmark, setLandmark] = useState("");
 
-  // If Buy Now, paymentItems = single product; else full cart
+  if (!user) {
+    navigate("/login");
+    return null;
+  }
+
+  // Determine payment items
   const paymentItems = location.state?.product
     ? [{ ...location.state.product, quantity: 1 }]
     : cart;
-  
+
   // Calculate totals
-  const subtotal = paymentItems.reduce((acc, item) => acc + (item.currentPrice * item.quantity), 0);
+  const subtotal = paymentItems.reduce(
+    (acc, item) => acc + item.currentPrice * item.quantity,
+    0
+  );
   const shipping = subtotal > 500 ? 0 : 40;
   const tax = subtotal * 0.18;
   const total = subtotal + shipping + tax;
 
-  // Handle order placement
   const handlePlaceOrder = async (e) => {
     e.preventDefault();
     setIsProcessing(true);
 
-    // Simulate order processing
     setTimeout(async () => {
       setIsProcessing(false);
-      
+
       // Generate order ID
-      const newOrderId = Math.random().toString(36).substr(2, 9).toUpperCase();
+      const newOrderId = Math.random().toString(36).substring(2, 11).toUpperCase();
       setOrderId(newOrderId);
       setOrderTotal(total);
-      
-      // Create order object
+
       const order = {
         orderId: newOrderId,
         items: paymentItems,
@@ -83,32 +86,24 @@ const Payment = () => {
         status: "Processing"
       };
 
-      // Save order to DB
       try {
-        // Fetch current user data
         const userResponse = await axios.get(`http://localhost:3005/users/${user.id}`);
         const currentOrders = userResponse.data.orders || [];
-        
-        // Add new order to orders array
         const updatedOrders = [...currentOrders, order];
-        
-        // Update user with new order
+
         await axios.patch(`http://localhost:3005/users/${user.id}`, {
           orders: updatedOrders,
-          // Only clear cart if order came from cart page (not Buy Now)
-          ...((!location.state?.product) && { cart: [] })
+          ...(!location.state?.product && { cart: [] })
         });
 
-        // Update local user state
         const updatedUser = {
           ...user,
           orders: updatedOrders,
-          ...((!location.state?.product) && { cart: [] })
+          ...(!location.state?.product && { cart: [] })
         };
         setUser(updatedUser);
         localStorage.setItem("user", JSON.stringify(updatedUser));
 
-        // Clear cart in context if order came from cart
         if (!location.state?.product) {
           setCart([]);
           localStorage.setItem("cart", JSON.stringify([]));
@@ -116,11 +111,7 @@ const Payment = () => {
 
         setPaymentSuccess(true);
 
-        // Redirect to home after showing success
-        setTimeout(() => {
-          navigate("/");
-        }, 3000);
-
+        setTimeout(() => navigate("/"), 3000);
       } catch (err) {
         console.error("Failed to save order:", err);
         alert("Failed to place order. Please try again.");
@@ -129,7 +120,6 @@ const Payment = () => {
     }, 2000);
   };
 
-  // Check if there are items to purchase (either from cart or Buy Now)
   if (paymentItems.length === 0) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-teal-50 via-white to-cyan-50">
@@ -148,7 +138,6 @@ const Payment = () => {
     );
   }
 
-  // Order Success Screen
   if (paymentSuccess) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-teal-50 via-white to-cyan-50">
@@ -158,18 +147,14 @@ const Payment = () => {
           </div>
           <h2 className="text-3xl font-bold text-gray-800 mb-3">Order Placed Successfully!</h2>
           <p className="text-gray-600 mb-2">Your order will be delivered soon.</p>
-          <p className="text-sm text-gray-500 mb-4">
-            Order ID: #{orderId}
-          </p>
+          <p className="text-sm text-gray-500 mb-4">Order ID: #{orderId}</p>
           <div className="bg-teal-50 rounded-xl p-4 mb-4">
             <p className="text-sm text-teal-700 font-semibold mb-1">Cash on Delivery</p>
             <p className="text-2xl font-bold text-teal-600">
               ₹{orderTotal.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
             </p>
           </div>
-          <p className="text-sm text-gray-600">
-            Please keep the exact amount ready for delivery.
-          </p>
+          <p className="text-sm text-gray-600">Please keep the exact amount ready for delivery.</p>
         </div>
       </div>
     );
@@ -178,7 +163,6 @@ const Payment = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-cyan-50 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        {/* Back Button */}
         <button
           onClick={() => navigate(location.state?.product ? -1 : "/cart")}
           className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-6 transition-colors"
@@ -188,7 +172,6 @@ const Payment = () => {
         </button>
 
         <div className="grid lg:grid-cols-3 gap-8">
-          {/* Delivery Address Section */}
           <div className="lg:col-span-2">
             <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-6 sm:p-8 mb-6">
               <div className="flex items-center gap-3 mb-6">
@@ -201,135 +184,61 @@ const Payment = () => {
                 </div>
               </div>
 
-              {/* Address Form */}
-              <form onSubmit={handlePlaceOrder}>
-                <div className="space-y-4">
-                  {/* Full Name */}
-                  <div>
+              <form onSubmit={handlePlaceOrder} className="space-y-4">
+                {[
+                  { label: "Full Name", value: fullName, setValue: setFullName, Icon: User },
+                  { label: "Phone Number", value: phone, setValue: setPhone, Icon: Phone, type: "text", max: 10 },
+                  { label: "Address Line 1", value: addressLine1, setValue: setAddressLine1, Icon: Home },
+                  { label: "Address Line 2", value: addressLine2, setValue: setAddressLine2 },
+                  { label: "Landmark (Optional)", value: landmark, setValue: setLandmark }
+                ].map(({ label, value, setValue, Icon, type, max }, idx) => (
+                  <div key={idx}>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      <User className="inline w-4 h-4 mr-1" />
-                      Full Name
+                      {Icon && <Icon className="inline w-4 h-4 mr-1" />}
+                      {label}
                     </label>
                     <input
-                      type="text"
-                      value={fullName}
-                      onChange={(e) => setFullName(e.target.value)}
-                      placeholder="Enter your full name"
+                      type={type || "text"}
+                      value={value || ""}
+                      onChange={(e) =>
+                        setValue(
+                          type === "text" && max
+                            ? e.target.value.replace(/\D/g, "").substring(0, max)
+                            : e.target.value
+                        )
+                      }
+                      placeholder={label}
+                      maxLength={max || undefined}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
-                      required
+                      required={label !== "Landmark (Optional)"}
                     />
                   </div>
+                ))}
 
-                  {/* Phone Number */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      <Phone className="inline w-4 h-4 mr-1" />
-                      Phone Number
-                    </label>
-                    <input
-                      type="tel"
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value.replace(/\D/g, '').substring(0, 10))}
-                      placeholder="10-digit mobile number"
-                      maxLength="10"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
-                      required
-                    />
-                  </div>
-
-                  {/* Address Line 1 */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      <Home className="inline w-4 h-4 mr-1" />
-                      Address Line 1
-                    </label>
-                    <input
-                      type="text"
-                      value={addressLine1}
-                      onChange={(e) => setAddressLine1(e.target.value)}
-                      placeholder="House No., Building Name"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
-                      required
-                    />
-                  </div>
-
-                  {/* Address Line 2 */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Address Line 2
-                    </label>
-                    <input
-                      type="text"
-                      value={addressLine2}
-                      onChange={(e) => setAddressLine2(e.target.value)}
-                      placeholder="Road Name, Area, Colony"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
-                      required
-                    />
-                  </div>
-
-                  {/* Landmark */}
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Landmark (Optional)
-                    </label>
-                    <input
-                      type="text"
-                      value={landmark}
-                      onChange={(e) => setLandmark(e.target.value)}
-                      placeholder="Nearby landmark"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
-                    />
-                  </div>
-
-                  {/* City, State, Pincode Grid */}
-                  <div className="grid sm:grid-cols-3 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        City
-                      </label>
+                {/* City, State, Pincode */}
+                <div className="grid sm:grid-cols-3 gap-4">
+                  {[
+                    { label: "City", value: city, setValue: setCity },
+                    { label: "State", value: state, setValue: setState },
+                    { label: "Pincode", value: pincode, setValue: setPincode, max: 6 }
+                  ].map(({ label, value, setValue, max }, idx) => (
+                    <div key={idx}>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">{label}</label>
                       <input
                         type="text"
-                        value={city}
-                        onChange={(e) => setCity(e.target.value)}
-                        placeholder="City"
+                        value={value || ""}
+                        onChange={(e) =>
+                          setValue(max ? e.target.value.replace(/\D/g, "").substring(0, max) : e.target.value)
+                        }
+                        placeholder={label}
+                        maxLength={max || undefined}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
                         required
                       />
                     </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        State
-                      </label>
-                      <input
-                        type="text"
-                        value={state}
-                        onChange={(e) => setState(e.target.value)}
-                        placeholder="State"
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
-                        required
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Pincode
-                      </label>
-                      <input
-                        type="text"
-                        value={pincode}
-                        onChange={(e) => setPincode(e.target.value.replace(/\D/g, '').substring(0, 6))}
-                        placeholder="6-digit pincode"
-                        maxLength="6"
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
-                        required
-                      />
-                    </div>
-                  </div>
+                  ))}
                 </div>
 
-                {/* Cash on Delivery Section */}
                 <div className="mt-8 p-6 bg-gradient-to-r from-teal-50 to-cyan-50 rounded-xl border-2 border-teal-200">
                   <div className="flex items-center gap-3 mb-3">
                     <div className="w-10 h-10 bg-teal-500 rounded-full flex items-center justify-center">
@@ -340,23 +249,20 @@ const Payment = () => {
                       <p className="text-sm text-gray-600">Pay when you receive your order</p>
                     </div>
                   </div>
-                  <div className="bg-white rounded-lg p-4 mt-4">
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-gray-600">Amount to be paid:</span>
-                      <span className="text-2xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">
-                        ₹{total.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
-                      </span>
-                    </div>
+                  <div className="bg-white rounded-lg p-4 mt-4 flex justify-between">
+                    <span className="text-sm text-gray-600">Amount to be paid:</span>
+                    <span className="text-2xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">
+                      ₹{total.toLocaleString("en-IN", { minimumFractionDigits: 2 })}
+                    </span>
                   </div>
                 </div>
-                  <br />
+
                 <div className="mb-6 p-4 bg-yellow-50 border-l-4 border-yellow-400 rounded-lg">
                   <p className="text-sm text-yellow-700 font-medium">
                     ⚠️ Online payment is not available now. Only Cash on Delivery is supported.
                   </p>
                 </div>
 
-                {/* Place Order Button */}
                 <button
                   type="submit"
                   disabled={isProcessing}
@@ -374,7 +280,7 @@ const Payment = () => {
                   ) : (
                     <>
                       <Package size={20} />
-                      Place Order - ₹{total.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
+                      Place Order - ₹{total.toLocaleString("en-IN", { minimumFractionDigits: 2 })}
                     </>
                   )}
                 </button>
@@ -382,7 +288,6 @@ const Payment = () => {
             </div>
           </div>
 
-          {/* Order Summary Section */}
           <div className="lg:col-span-1">
             <OrderSummary
               paymentItems={paymentItems}
@@ -398,25 +303,18 @@ const Payment = () => {
   );
 };
 
-// Order Summary Component
 const OrderSummary = ({ paymentItems, subtotal, shipping, tax, total }) => (
   <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-6 sticky top-6">
     <h3 className="text-xl font-bold text-gray-900 mb-4">Order Summary</h3>
-    
-    {/* Cart Items */}
     <div className="space-y-3 mb-4 max-h-48 overflow-y-auto">
-      {paymentItems.map((item) => (
-        <div key={item.id} className="flex gap-3">
-          <img
-            src={item.image}
-            alt={item.title}
-            className="w-16 h-16 object-cover rounded-lg"
-          />
+      {paymentItems.map((item, idx) => (
+        <div key={item.id || idx} className="flex gap-3">
+          <img src={item.image} alt={item.title} className="w-16 h-16 object-cover rounded-lg" />
           <div className="flex-1 min-w-0">
             <p className="text-sm font-medium text-gray-900 line-clamp-1">{item.title}</p>
             <p className="text-xs text-gray-600">Qty: {item.quantity}</p>
             <p className="text-sm font-semibold text-gray-900">
-              ₹{(item.currentPrice * item.quantity).toLocaleString('en-IN')}
+              ₹{(item.currentPrice * item.quantity).toLocaleString("en-IN")}
             </p>
           </div>
         </div>
@@ -426,36 +324,31 @@ const OrderSummary = ({ paymentItems, subtotal, shipping, tax, total }) => (
     <div className="border-t border-gray-200 pt-4 space-y-2">
       <div className="flex justify-between text-sm">
         <span className="text-gray-600">Subtotal</span>
-        <span className="font-medium text-gray-900">₹{subtotal.toLocaleString('en-IN')}</span>
+        <span className="font-medium text-gray-900">₹{subtotal.toLocaleString("en-IN")}</span>
       </div>
       <div className="flex justify-between text-sm">
         <span className="text-gray-600">Shipping</span>
-        <span className="font-medium text-gray-900">
-          {shipping === 0 ? "FREE" : `₹${shipping}`}
-        </span>
+        <span className="font-medium text-gray-900">{shipping === 0 ? "FREE" : `₹${shipping}`}</span>
       </div>
       <div className="flex justify-between text-sm">
         <span className="text-gray-600">Tax (18% GST)</span>
-        <span className="font-medium text-gray-900">₹{tax.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
+        <span className="font-medium text-gray-900">
+          ₹{tax.toLocaleString("en-IN", { minimumFractionDigits: 2 })}
+        </span>
       </div>
-      <div className="border-t border-gray-200 pt-2 mt-2">
-        <div className="flex justify-between">
-          <span className="text-base font-semibold text-gray-900">Total (COD)</span>
-          <span className="text-xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">
-            ₹{total.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
-          </span>
-        </div>
+      <div className="border-t border-gray-200 pt-2 mt-2 flex justify-between">
+        <span className="text-base font-semibold text-gray-900">Total (COD)</span>
+        <span className="text-xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">
+          ₹{total.toLocaleString("en-IN", { minimumFractionDigits: 2 })}
+        </span>
       </div>
     </div>
 
     {shipping === 0 && (
       <div className="mt-4 p-3 bg-green-50 rounded-lg">
-        <p className="text-xs text-green-700 font-medium">
-          🎉 You're eligible for FREE shipping!
-        </p>
+        <p className="text-xs text-green-700 font-medium">🎉 You're eligible for FREE shipping!</p>
       </div>
     )}
-
   </div>
 );
 

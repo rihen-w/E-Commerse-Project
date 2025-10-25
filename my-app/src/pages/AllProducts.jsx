@@ -1,4 +1,3 @@
-// AllProducts.jsx
 import React, { useState, useEffect, useContext, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { Heart, ChevronDown, SlidersHorizontal } from "lucide-react";
@@ -14,6 +13,9 @@ const AllProducts = () => {
   const [sortBy, setSortBy] = useState("default");
   const [showCategoryMenu, setShowCategoryMenu] = useState(false);
   const [showSortMenu, setShowSortMenu] = useState(false);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 12;
 
   const navigate = useNavigate();
   const { user, cart, setCart, setUser, wishlist, setWishlist } = useContext(UserContext);
@@ -64,6 +66,14 @@ const AllProducts = () => {
 
     return filtered;
   }, [products, selectedCategory, sortBy]);
+
+  // Pagination
+  const totalPages = Math.ceil(filteredAndSortedProducts.length / productsPerPage);
+  const paginatedProducts = useMemo(() => {
+    const start = (currentPage - 1) * productsPerPage;
+    const end = start + productsPerPage;
+    return filteredAndSortedProducts.slice(start, end);
+  }, [filteredAndSortedProducts, currentPage]);
 
   const toggleWishlist = async (product) => {
     if (!user) {
@@ -165,6 +175,7 @@ const AllProducts = () => {
                       onClick={() => {
                         setSelectedCategory(cat);
                         setShowCategoryMenu(false);
+                        setCurrentPage(1); // reset page
                       }}
                       className={`w-full text-left px-4 py-2 hover:bg-gray-50 first:rounded-t-lg last:rounded-b-lg transition-colors ${
                         selectedCategory === cat
@@ -202,6 +213,7 @@ const AllProducts = () => {
                       onClick={() => {
                         setSortBy(option.value);
                         setShowSortMenu(false);
+                        setCurrentPage(1); // reset page
                       }}
                       className={`w-full text-left px-4 py-2 hover:bg-gray-50 first:rounded-t-lg last:rounded-b-lg transition-colors ${
                         sortBy === option.value
@@ -220,12 +232,12 @@ const AllProducts = () => {
 
         {/* Product Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 mb-8">
-          {filteredAndSortedProducts.length === 0 ? (
+          {paginatedProducts.length === 0 ? (
             <p className="text-gray-600 col-span-full text-center py-12">
               No products found matching your filters
             </p>
           ) : (
-            filteredAndSortedProducts.map((product) => {
+            paginatedProducts.map((product) => {
               const liked = isInWishlist(product.id);
 
               return (
@@ -297,6 +309,41 @@ const AllProducts = () => {
             })
           )}
         </div>
+
+        {/* Pagination Controls */}
+        {totalPages > 1 && (
+          <div className="flex justify-center gap-2 mb-8 flex-wrap">
+            <button
+              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+              className="px-3 py-1 bg-white border border-gray-300 rounded hover:bg-gray-100"
+              disabled={currentPage === 1}
+            >
+              Prev
+            </button>
+
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+              <button
+                key={page}
+                onClick={() => setCurrentPage(page)}
+                className={`px-3 py-1 border rounded ${
+                  currentPage === page
+                    ? "bg-[#2eb4ac] text-white border-[#2eb4ac]"
+                    : "bg-white border-gray-300 hover:bg-gray-100"
+                }`}
+              >
+                {page}
+              </button>
+            ))}
+
+            <button
+              onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+              className="px-3 py-1 bg-white border border-gray-300 rounded hover:bg-gray-100"
+              disabled={currentPage === totalPages}
+            >
+              Next
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
