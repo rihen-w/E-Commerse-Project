@@ -339,7 +339,30 @@
       "email": "rihenadmin@gmail.com",
       "password": "Rihen!12345",
       "isAdmin": true,
-      "wishlist": [],
+      "wishlist": [
+        {
+          "id": "2",
+          "title": "MuscleBlaze Whey PR",
+          "subtitle": "4.4 lb Chocolate Fudge",
+          "currentPrice": "5609",
+          "originalPrice": "6999",
+          "discount": "19% off",
+          "badge": "Trusted",
+          "image": "https://img8.hkrtcdn.com/34084/prd_3408347-MuscleBlaze-Biozyme-Whey-PR-4.4-lb-Chocolate-Fudge_c_m.jpg",
+          "item": "whey protein"
+        },
+        {
+          "id": "3",
+          "title": "GNC Gold 100% Whey",
+          "subtitle": "4.4 lb Double Rich Chocolate",
+          "currentPrice": "6319",
+          "originalPrice": "8099",
+          "discount": "21% off",
+          "badge": "Best Seller",
+          "image": "https://images-eu.ssl-images-amazon.com/images/I/61a-LrnRvwL._AC_UL210_SR210,210_.jpg",
+          "item": "whey protein"
+        }
+      ],
       "cart": []
     },
     {
