@@ -20,7 +20,7 @@ export default function SearchResults() {
       setLoading(true);
 
       axios
-        .get("http://localhost:3005/products")
+        .get("https://powell-895j.onrender.com/products")
         .then((res) => {
           const filtered = res.data.filter(
             (product) =>
@@ -56,7 +56,7 @@ export default function SearchResults() {
     localStorage.setItem("user", JSON.stringify(updatedUser));
 
     try {
-      await axios.patch(`http://localhost:3005/users/${user.id}`, { wishlist: updatedWishlist });
+      await axios.patch(`https://powell-895j.onrender.com/users/${user.id}`, { wishlist: updatedWishlist });
     } catch (err) {
       console.error("Failed to update wishlist in DB:", err);
     }

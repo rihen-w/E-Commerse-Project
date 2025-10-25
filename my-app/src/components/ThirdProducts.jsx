@@ -17,7 +17,7 @@ export default function ThirdProducts() {
     let isMounted = true;
 
     axios
-      .get("http://localhost:3005/products")
+      .get("https://powell-895j.onrender.com/products")
       .then((response) => {
         if (isMounted) setProducts(response.data);
       })
@@ -48,7 +48,7 @@ export default function ThirdProducts() {
     localStorage.setItem("user", JSON.stringify(updatedUser));
 
     try {
-      await axios.patch(`http://localhost:3005/users/${user.id}`, {
+      await axios.patch(`https://powell-895j.onrender.com/users/${user.id}`, {
         wishlist: updatedWishlist,
       });
     } catch (err) {

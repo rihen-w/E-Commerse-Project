@@ -32,7 +32,7 @@ const handleBuyNow = (product) => {
   useEffect(() => {
     if (id) {
       axios
-        .get(`http://localhost:3005/products/${id}`)
+        .get(`https://powell-895j.onrender.com/products/${id}`)
         .then((response) => {
           setProduct(response.data);
           setLoading(false);
@@ -83,7 +83,7 @@ const handleBuyNow = (product) => {
     localStorage.setItem("user", JSON.stringify(updatedUser));
 
     try {
-      await axios.patch(`http://localhost:3005/users/${user.id}`, {
+      await axios.patch(`https://powell-895j.onrender.com/users/${user.id}`, {
         wishlist: updatedWishlist,
       });
     } catch (err) {

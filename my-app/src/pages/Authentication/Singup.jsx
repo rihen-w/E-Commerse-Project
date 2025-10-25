@@ -51,7 +51,7 @@ export default function Signup({ onSwitch }) {
     if (!validate()) return;
 
     try {
-      const { data: existing } = await axios.get("http://localhost:3005/users", {
+      const { data: existing } = await axios.get("https://powell-895j.onrender.com/users", {
         params: { email: form.email },
       });
 
@@ -70,7 +70,7 @@ export default function Signup({ onSwitch }) {
         orders: [],
       };
 
-      await axios.post("http://localhost:3005/users", newUser);
+      await axios.post("https://powell-895j.onrender.com/users", newUser);
       alert("Signup successful! Please login.");
       onSwitch(); // switch to login form
     } catch (err) {

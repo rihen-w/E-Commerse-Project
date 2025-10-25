@@ -16,7 +16,7 @@ export default function SecondProducts() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await axios.get("http://localhost:3005/products");
+        const res = await axios.get("https://powell-895j.onrender.com/products");
         setProducts(res.data);
       } catch (err) {
         setError(err.message);
@@ -42,7 +42,7 @@ export default function SecondProducts() {
     localStorage.setItem("user", JSON.stringify(updatedUser));
 
     try {
-      await axios.patch(`http://localhost:3005/users/${user.id}`, {
+      await axios.patch(`https://powell-895j.onrender.com/users/${user.id}`, {
         wishlist: updatedWishlist,
       });
     } catch (err) {

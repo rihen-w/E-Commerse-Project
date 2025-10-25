@@ -23,7 +23,7 @@ const Customers = () => {
   const fetchCustomers = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:3005/users', {
+      const response = await fetch('https://powell-895j.onrender.com/users', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -59,7 +59,7 @@ const Customers = () => {
 
   const handleBlockUnblock = async (customerId, currentBlockStatus) => {
     try {
-      const response = await fetch(`http://localhost:3005/users/${customerId}`, {
+      const response = await fetch(`https://powell-895j.onrender.com/users/${customerId}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ isBlock: !currentBlockStatus })
@@ -75,7 +75,7 @@ const Customers = () => {
 
   const handleDeleteCustomer = async (customerId) => {
     try {
-      const response = await fetch(`http://localhost:3005/users/${customerId}`, {
+      const response = await fetch(`https://powell-895j.onrender.com/users/${customerId}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' }
       });

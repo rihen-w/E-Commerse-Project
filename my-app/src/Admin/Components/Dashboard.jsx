@@ -22,12 +22,12 @@ const Dashboard = () => {
     const fetchData = async () => {
       try {
         // Fetch products
-        const productsResponse = await fetch('http://localhost:3005/products');
+        const productsResponse = await fetch('https://powell-895j.onrender.com/products');
         if (!productsResponse.ok) throw new Error('Failed to fetch products');
         const products = await productsResponse.json();
 
         // Fetch users
-        const usersResponse = await fetch('http://localhost:3005/users');
+        const usersResponse = await fetch('https://powell-895j.onrender.com/users');
         if (!usersResponse.ok) throw new Error('Failed to fetch users');
         const users = await usersResponse.json();
 

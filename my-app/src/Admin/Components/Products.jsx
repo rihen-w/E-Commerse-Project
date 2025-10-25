@@ -43,7 +43,7 @@ const Products = () => {
   const fetchProducts = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:3005/products');
+      const response = await fetch('https://powell-895j.onrender.com/products');
       
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -119,7 +119,7 @@ const Products = () => {
         badge: newProduct.badge
       };
 
-      const response = await fetch('http://localhost:3005/products', {
+      const response = await fetch('https://powell-895j.onrender.com/products', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -183,7 +183,7 @@ const Products = () => {
         badge: editingProduct.badge
       };
 
-      const response = await fetch(`http://localhost:3005/products/${editingProduct.id}`, {
+      const response = await fetch(`https://powell-895j.onrender.com/products/${editingProduct.id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -221,7 +221,7 @@ const Products = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:3005/products/${productId}`, {
+      const response = await fetch(`https://powell-895j.onrender.com/products/${productId}`, {
         method: 'DELETE'
       });
 

@@ -15,7 +15,7 @@ export default function Login({ onSwitch }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.get("http://localhost:3005/users", {
+      const { data } = await axios.get("https://powell-895j.onrender.com/users", {
         params: { email: form.email, password: form.password },
       });
 

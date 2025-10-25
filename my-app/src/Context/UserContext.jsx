@@ -44,7 +44,7 @@ export const UserProvider = ({ children }) => {
         // Debounced DB update
         const timer = setTimeout(() => {
           axios
-            .patch(`http://localhost:3005/users/${user.id}`, { ...user, wishlist, cart })
+            .patch(`https://powell-895j.onrender.com/${user.id}`, { ...user, wishlist, cart })
             .then(() => console.log("Synced user data with DB"))
             .catch((err) => console.error("Failed to update user in DB", err));
         }, 500);
@@ -70,7 +70,7 @@ export const UserProvider = ({ children }) => {
 
     const fetchUserData = async () => {
       try {
-        const res = await axios.get(`http://localhost:3005/users/${user.id}`);
+        const res = await axios.get(`https://powell-895j.onrender.com/${user.id}`);
         setCart(res.data.cart || []);
         setWishlist(res.data.wishlist || []);
       } catch (err) {

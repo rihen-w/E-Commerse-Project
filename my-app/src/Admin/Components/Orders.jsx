@@ -35,7 +35,7 @@ const Orders = () => {
   const fetchOrders = async () => {
     setLoading(true);
     try {
-      const usersResponse = await fetch('http://localhost:3005/users');
+      const usersResponse = await fetch('https://powell-895j.onrender.com/users');
       if (!usersResponse.ok) throw new Error('Failed to fetch users');
       const users = await usersResponse.json();
 
@@ -70,7 +70,7 @@ const Orders = () => {
     
     try {
       // 1. Update in db.json via API
-      const userResponse = await fetch(`http://localhost:3005/users/${userId}`);
+      const userResponse = await fetch(`https://powell-895j.onrender.com/users/${userId}`);
       if (!userResponse.ok) throw new Error('Failed to fetch user data');
       const user = await userResponse.json();
 
@@ -80,7 +80,7 @@ const Orders = () => {
           : order
       );
 
-      const updateResponse = await fetch(`http://localhost:3005/users/${userId}`, {
+      const updateResponse = await fetch(`https://powell-895j.onrender.com/users/${userId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

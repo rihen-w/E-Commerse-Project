@@ -87,11 +87,11 @@ const Payment = () => {
       };
 
       try {
-        const userResponse = await axios.get(`http://localhost:3005/users/${user.id}`);
+        const userResponse = await axios.get(`https://powell-895j.onrender.com/users/${user.id}`);
         const currentOrders = userResponse.data.orders || [];
         const updatedOrders = [...currentOrders, order];
 
-        await axios.patch(`http://localhost:3005/users/${user.id}`, {
+        await axios.patch(`https://powell-895j.onrender.com/users/${user.id}`, {
           orders: updatedOrders,
           ...(!location.state?.product && { cart: [] })
         });

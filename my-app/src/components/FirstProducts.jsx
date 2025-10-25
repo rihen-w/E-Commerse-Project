@@ -16,7 +16,7 @@ export default function FirstProducts() {
   useEffect(() => {
     let isMounted = true;
     axios
-      .get("http://localhost:3005/products")
+      .get("https://powell-895j.onrender.com/products")
       .then((res) => { if (isMounted) setProducts(res.data); })
       .catch((err) => { if (isMounted) setError(err.message); })
       .finally(() => { if (isMounted) setLoading(false); });
@@ -38,7 +38,7 @@ export default function FirstProducts() {
     localStorage.setItem("user", JSON.stringify(updatedUser));
 
     try {
-      await axios.patch(`http://localhost:3005/users/${user.id}`, { wishlist: updatedWishlist });
+      await axios.patch(`https://powell-895j.onrender.com/users/${user.id}`, { wishlist: updatedWishlist });
     } catch (err) {
       console.error("Failed to update wishlist:", err);
     }
