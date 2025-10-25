@@ -23,7 +23,7 @@ const AllProducts = () => {
   // Load products
   useEffect(() => {
     axios
-      .get("http://localhost:3005/products")
+      .get("https://powell-895j.onrender.com/products")
       .then((response) => {
         setProducts(response.data);
         setLoading(false);
@@ -92,7 +92,7 @@ const AllProducts = () => {
     localStorage.setItem("user", JSON.stringify(updatedUser));
 
     try {
-      await axios.patch(`https://powell-895j.onrender.com/${user.id}`, { wishlist: updatedWishlist });
+      await axios.patch(`https://powell-895j.onrender.com/users/${user.id}`, { wishlist: updatedWishlist });
     } catch (err) {
       console.error("Failed to update wishlist in DB:", err);
     }
