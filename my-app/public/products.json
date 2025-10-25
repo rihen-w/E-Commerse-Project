@@ -1,0 +1,7 @@
+
+import products from '../data/products.json';  // Adjust path as needed
+
+// Then use 'products' directly in your state or rendering logic
+useEffect(() => {
+  setProductList(products);  // Assuming you have a state like const [productList, setProductList] = useState([]);
+}, []);
