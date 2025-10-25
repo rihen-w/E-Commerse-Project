@@ -1,24 +1,22 @@
-import Navbar from './components/Navbar.jsx'
-import {BrowserRouter as Router, Route , Routes , Navigate , Outlet} from "react-router-dom";
-import Home from './pages/Home';
-import AllProducts from './pages/AllProducts';
-import Wishlist from './pages/WishList';
-import Cart from './pages/Cart';
-import ProductPage from './pages/ProductPage';
+import React, { Suspense, lazy } from "react";
+import { BrowserRouter as Router, Route, Routes, Outlet } from "react-router-dom";
+import Navbar from './components/Navbar.jsx';
 import ProtectedRoute from './components/ProtectedRouter.jsx';
-import Signup from './pages/Authentication/Singup';
-import Login from './pages/Authentication/Login';
-import Auth from './pages/Authentication/Auth';
-import UserProfile from './pages/UserProfile';
-import Payment from './pages/Payment.jsx';
-import Orders from "./pages/Orders.jsx"
-import SearchResults from "./pages/SearchResults";
 
-{/* ---------- Admin layout (no Navbar) ---------- */}
-
-import Admin from './Admin/Admin.jsx';
-
-
+// Lazy load pages
+const Home = lazy(() => import('./pages/Home'));
+const AllProducts = lazy(() => import('./pages/AllProducts'));
+const Wishlist = lazy(() => import('./pages/WishList'));
+const Cart = lazy(() => import('./pages/Cart'));
+const ProductPage = lazy(() => import('./pages/ProductPage'));
+const Signup = lazy(() => import('./pages/Authentication/Singup'));
+const Login = lazy(() => import('./pages/Authentication/Login'));
+const Auth = lazy(() => import('./pages/Authentication/Auth'));
+const UserProfile = lazy(() => import('./pages/UserProfile'));
+const Payment = lazy(() => import('./pages/Payment.jsx'));
+const Orders = lazy(() => import("./pages/Orders.jsx"));
+const SearchResults = lazy(() => import("./pages/SearchResults"));
+const Admin = lazy(() => import('./Admin/Admin.jsx'));
 
 // Layout that includes the navbar
 function MainLayout() {
@@ -37,47 +35,51 @@ function AdminLayout() {
 
 function App() {
   return (
-   <Router>
-      <Routes>
+    <Router>
+      <Suspense fallback={
+        <div className="flex items-center justify-center min-h-screen">
+          <p className="text-gray-600 text-lg">Loading...</p>
+        </div>
+      }>
+        <Routes>
 
-        {/* ---------- Main layout with Navbar ---------- */}
+          {/* ---------- Main layout with Navbar ---------- */}
+          <Route element={<MainLayout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/auth" element={<Auth />} />
+            <Route path="/products" element={<AllProducts />} />
+            <Route path="/cart" element={
+              <ProtectedRoute>
+                <Cart />
+              </ProtectedRoute>
+            }/>
+            <Route path="/wishlist" element={
+              <ProtectedRoute>
+                <Wishlist />
+              </ProtectedRoute>
+            }/>
+            <Route path="/productpage/:id" element={<ProductPage />} />
+            <Route path="/orders" element={<Orders />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/search" element={<SearchResults />} />
+            <Route path="/payment" element={<Payment />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/profile" element={<UserProfile />} />
+          </Route>
 
-        <Route element={<MainLayout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/auth" element={<Auth/>}/>
-          <Route path="/products" element={<AllProducts />} />
-          <Route path="/cart" element={
-                                        <ProtectedRoute>
-                                          <Cart />
-                                        </ProtectedRoute>
-                                      }/>
-          <Route path="/wishlist" element={
-                                            <ProtectedRoute>
-                                              <Wishlist />
-                                            </ProtectedRoute>
-                                          }/>
-          <Route path="/productpage/:id" element={<ProductPage />} />
-          <Route path="/orders" element={<Orders />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/search" element={<SearchResults />} />
-          <Route path="/payment" element={<Payment />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/profile" element={<UserProfile />} />
-        </Route>
+          {/* ---------- Admin layout (no Navbar) ---------- */}
+          <Route element={<AdminLayout />}>
+            <Route path="/admin" element={
+              <ProtectedRoute>
+                <Admin />
+              </ProtectedRoute>
+            }/>
+          </Route>
 
-        {/* ---------- Admin layout (no Navbar) ---------- */}
-        
-        <Route element={<AdminLayout />}>
-
-          <Route path="/admin" element={    <ProtectedRoute>
-                                              <Admin/>
-                                            </ProtectedRoute>}/>
-                        
-        </Route>
-
-      </Routes>
+        </Routes>
+      </Suspense>
     </Router>
   )
 }
 
-export default App
+export default App;
